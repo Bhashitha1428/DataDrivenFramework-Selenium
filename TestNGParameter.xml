@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<suite name="Login suite">
+<suite name="Login suite using TestNg parameter">
     <listeners>
         <listener class-name="com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter"/>
     </listeners>
     <test name="BothCorrect">
         <parameter name="username" value="Admin"/>
         <parameter name="password" value="admin123"/>
+        <parameter name="validation" value="valid"/>
         <classes>
-            <class name="LoginTestCases.BothCorrect"/>
+            <class name="DataDrivenTests.LoginUsingParameter"/>
         </classes>
     </test>
     <test name="BothInCorrect">
         <parameter name="username" value="dummyAdmin"/>
         <parameter name="password" value="dummyPwd"/>
+        <parameter name="validation" value="invalid"/>
         <classes>
-            <class name="LoginTestCases.BothInCorrect"/>
+            <class name="DataDrivenTests.LoginUsingParameter"/>
         </classes>
     </test>
     <test name="CorrectPassword">
         <parameter name="username" value="dummyAdmin"/>
         <parameter name="password" value="admin123"/>
+        <parameter name="validation" value="invalid"/>
         <classes>
-            <class name="LoginTestCases.CorrectPassword"/>
+            <class name="DataDrivenTests.LoginUsingParameter"/>
         </classes>
     </test>
     <test name="CorrectUsername">
         <parameter name="username" value="Admin"/>
         <parameter name="password" value="dummyPwd"/>
+        <parameter name="validation" value="invalid"/>
         <classes>
-            <class name="LoginTestCases.CorrectUsername"/>
+            <class name="DataDrivenTests.LoginUsingParameter"/>
         </classes>
     </test>
 </suite>

@@ -1,9 +1,10 @@
-package LoginTestCases;
+package DataDrivenTests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -11,7 +12,8 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class CorrectPassword {
+public class LoginUsingParameter {
+
     WebDriver driver;
 
     @BeforeMethod
@@ -23,8 +25,8 @@ public class CorrectPassword {
     }
 
     @Test
-    @Parameters({"username","password"})
-    public void loginWithCorrectPassword(String uName,String pwd) {
+    @Parameters({"username","password","validation"})
+    public void loginTestScenario(String uName,String pwd,String validState) throws InterruptedException {
 
         WebElement userName = driver.findElement(By.xpath("//input[@placeholder='Username']"));
         userName.sendKeys(uName);
@@ -32,11 +34,19 @@ public class CorrectPassword {
         password.sendKeys(pwd);
 
         driver.findElement(By.xpath("//button[@type='submit']")).click();
+        Thread.sleep(3000);
+        boolean urlVerification=driver.getCurrentUrl().contains("dashboard");
+
+        if(validState.equals("valid")){
+            Assert.assertTrue(urlVerification,"Login fail with correct credentials");
+        }else{
+            Assert.assertFalse(urlVerification,"System able to login with incorrect credentials");
+        }
 
     }
+
     @AfterMethod
     public void closePage(){
         driver.quit();
     }
-
 }
